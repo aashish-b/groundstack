@@ -1,0 +1,9 @@
+{
+  "service": {
+    "name": "mixed-repo",
+    "environment": "test"
+  },
+  "featureFlags": {
+    "ciAnnotations": true
+  }
+}

@@ -1,0 +1,5 @@
+auth:
+  refresh_endpoint: /oauth/token
+  refresh_margin_seconds: 60
+service:
+  base_url: https://example.internal

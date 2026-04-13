@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "groundstack"
+version = "0.1.0"
+description = "Deterministic repo contexting and prompt bundle assembly for coding agents"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "pathspec>=0.12.1",
+  "pydantic>=2.9.0",
+  "PyYAML>=6.0.2",
+  "tree-sitter>=0.25.0",
+  "tree-sitter-javascript>=0.25.0",
+  "tree-sitter-typescript>=0.23.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.11.2",
+  "pytest>=8.3.3",
+  "ruff>=0.6.9",
+]
+
+[project.scripts]
+groundstack = "groundstack.cli:main"
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["tests/fixtures"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+packages = ["groundstack"]
+
+[[tool.mypy.overrides]]
+module = [
+  "pathspec.*",
+  "tree_sitter",
+  "tree_sitter.*",
+  "tree_sitter_javascript",
+  "tree_sitter_typescript",
+  "yaml",
+]
+ignore_missing_imports = true

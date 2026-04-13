@@ -1,0 +1,5 @@
+[service]
+name = "mixed-repo"
+
+[ci]
+required_checks = ["pytest", "mypy"]

@@ -1,0 +1,1461 @@
+{
+  "ContextBundle": {
+    "$defs": {
+      "CacheRecord": {
+        "additionalProperties": false,
+        "properties": {
+          "cacheable_sections": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Cacheable Sections",
+            "type": "array"
+          },
+          "deterministic": {
+            "default": true,
+            "title": "Deterministic",
+            "type": "boolean"
+          },
+          "prefix_hash": {
+            "title": "Prefix Hash",
+            "type": "string"
+          },
+          "renderer_version": {
+            "title": "Renderer Version",
+            "type": "string"
+          },
+          "section_hashes": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Section Hashes",
+            "type": "object"
+          },
+          "stable_prefix_tokens": {
+            "title": "Stable Prefix Tokens",
+            "type": "integer"
+          },
+          "tokenizer_id": {
+            "title": "Tokenizer Id",
+            "type": "string"
+          },
+          "total_prompt_tokens": {
+            "title": "Total Prompt Tokens",
+            "type": "integer"
+          },
+          "ttl_hint_seconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Ttl Hint Seconds"
+          }
+        },
+        "required": [
+          "prefix_hash",
+          "renderer_version",
+          "tokenizer_id",
+          "cacheable_sections",
+          "section_hashes",
+          "stable_prefix_tokens",
+          "total_prompt_tokens"
+        ],
+        "title": "CacheRecord",
+        "type": "object"
+      },
+      "Citation": {
+        "additionalProperties": false,
+        "properties": {
+          "end_line": {
+            "title": "End Line",
+            "type": "integer"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "start_line": {
+            "title": "Start Line",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "start_line",
+          "end_line"
+        ],
+        "title": "Citation",
+        "type": "object"
+      },
+      "EvidenceBundle": {
+        "additionalProperties": false,
+        "properties": {
+          "files": {
+            "items": {
+              "$ref": "#/$defs/ScoredFile"
+            },
+            "title": "Files",
+            "type": "array"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/$defs/EvidenceItem"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "mode": {
+            "enum": [
+              "high_token",
+              "low_token"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "symbols": {
+            "items": {
+              "$ref": "#/$defs/ScoredSymbol"
+            },
+            "title": "Symbols",
+            "type": "array"
+          },
+          "task": {
+            "$ref": "#/$defs/TaskSpec"
+          },
+          "total_evidence_tokens": {
+            "title": "Total Evidence Tokens",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "task",
+          "mode",
+          "items",
+          "files",
+          "symbols",
+          "total_evidence_tokens"
+        ],
+        "title": "EvidenceBundle",
+        "type": "object"
+      },
+      "EvidenceItem": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "citations": {
+            "items": {
+              "$ref": "#/$defs/Citation"
+            },
+            "title": "Citations",
+            "type": "array"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "snippet": {
+            "title": "Snippet",
+            "type": "string"
+          },
+          "symbol_names": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symbol Names",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "reason",
+          "score",
+          "citations",
+          "symbol_names",
+          "snippet"
+        ],
+        "title": "EvidenceItem",
+        "type": "object"
+      },
+      "RenderedSection": {
+        "additionalProperties": false,
+        "properties": {
+          "cacheable": {
+            "title": "Cacheable",
+            "type": "boolean"
+          },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "content_hash": {
+            "title": "Content Hash",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "token_count": {
+            "title": "Token Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "cacheable",
+          "token_count",
+          "content_hash",
+          "content"
+        ],
+        "title": "RenderedSection",
+        "type": "object"
+      },
+      "ScoredFile": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "graph_links": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Graph Links",
+            "type": "array"
+          },
+          "matched_terms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Terms",
+            "type": "array"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "symbols": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symbols",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "summary",
+          "score"
+        ],
+        "title": "ScoredFile",
+        "type": "object"
+      },
+      "ScoredSymbol": {
+        "additionalProperties": false,
+        "properties": {
+          "end_line": {
+            "title": "End Line",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          },
+          "start_line": {
+            "title": "Start Line",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "name",
+          "kind",
+          "signature",
+          "start_line",
+          "end_line",
+          "score"
+        ],
+        "title": "ScoredSymbol",
+        "type": "object"
+      },
+      "TaskSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "constraints": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Constraints",
+            "type": "array"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "mode": {
+            "default": "high_token",
+            "enum": [
+              "high_token",
+              "low_token"
+            ],
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ],
+        "title": "TaskSpec",
+        "type": "object"
+      },
+      "TokenBudget": {
+        "additionalProperties": false,
+        "properties": {
+          "max_prompt_tokens": {
+            "title": "Max Prompt Tokens",
+            "type": "integer"
+          },
+          "mode": {
+            "enum": [
+              "high_token",
+              "low_token"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "reserved_output_tokens": {
+            "default": 1024,
+            "title": "Reserved Output Tokens",
+            "type": "integer"
+          },
+          "target_prompt_tokens": {
+            "title": "Target Prompt Tokens",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mode",
+          "max_prompt_tokens",
+          "target_prompt_tokens"
+        ],
+        "title": "TokenBudget",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "budget": {
+        "$ref": "#/$defs/TokenBudget"
+      },
+      "cache_record": {
+        "$ref": "#/$defs/CacheRecord"
+      },
+      "citations": {
+        "items": {
+          "$ref": "#/$defs/Citation"
+        },
+        "title": "Citations",
+        "type": "array"
+      },
+      "evidence_bundle": {
+        "$ref": "#/$defs/EvidenceBundle"
+      },
+      "prompt": {
+        "title": "Prompt",
+        "type": "string"
+      },
+      "rendered_sections": {
+        "items": {
+          "$ref": "#/$defs/RenderedSection"
+        },
+        "title": "Rendered Sections",
+        "type": "array"
+      },
+      "repo_map_markdown": {
+        "title": "Repo Map Markdown",
+        "type": "string"
+      },
+      "repo_root": {
+        "title": "Repo Root",
+        "type": "string"
+      },
+      "stable_prefix": {
+        "title": "Stable Prefix",
+        "type": "string"
+      },
+      "task": {
+        "$ref": "#/$defs/TaskSpec"
+      },
+      "token_counts": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "title": "Token Counts",
+        "type": "object"
+      },
+      "variable_tail": {
+        "title": "Variable Tail",
+        "type": "string"
+      }
+    },
+    "required": [
+      "repo_root",
+      "task",
+      "budget",
+      "repo_map_markdown",
+      "evidence_bundle",
+      "rendered_sections",
+      "citations",
+      "token_counts",
+      "stable_prefix",
+      "variable_tail",
+      "prompt",
+      "cache_record"
+    ],
+    "title": "ContextBundle",
+    "type": "object"
+  },
+  "EvidenceBundle": {
+    "$defs": {
+      "Citation": {
+        "additionalProperties": false,
+        "properties": {
+          "end_line": {
+            "title": "End Line",
+            "type": "integer"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "start_line": {
+            "title": "Start Line",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "start_line",
+          "end_line"
+        ],
+        "title": "Citation",
+        "type": "object"
+      },
+      "EvidenceItem": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "citations": {
+            "items": {
+              "$ref": "#/$defs/Citation"
+            },
+            "title": "Citations",
+            "type": "array"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "snippet": {
+            "title": "Snippet",
+            "type": "string"
+          },
+          "symbol_names": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symbol Names",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "reason",
+          "score",
+          "citations",
+          "symbol_names",
+          "snippet"
+        ],
+        "title": "EvidenceItem",
+        "type": "object"
+      },
+      "ScoredFile": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "graph_links": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Graph Links",
+            "type": "array"
+          },
+          "matched_terms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Terms",
+            "type": "array"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "symbols": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symbols",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "summary",
+          "score"
+        ],
+        "title": "ScoredFile",
+        "type": "object"
+      },
+      "ScoredSymbol": {
+        "additionalProperties": false,
+        "properties": {
+          "end_line": {
+            "title": "End Line",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          },
+          "start_line": {
+            "title": "Start Line",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "name",
+          "kind",
+          "signature",
+          "start_line",
+          "end_line",
+          "score"
+        ],
+        "title": "ScoredSymbol",
+        "type": "object"
+      },
+      "TaskSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "constraints": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Constraints",
+            "type": "array"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "mode": {
+            "default": "high_token",
+            "enum": [
+              "high_token",
+              "low_token"
+            ],
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ],
+        "title": "TaskSpec",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "files": {
+        "items": {
+          "$ref": "#/$defs/ScoredFile"
+        },
+        "title": "Files",
+        "type": "array"
+      },
+      "items": {
+        "items": {
+          "$ref": "#/$defs/EvidenceItem"
+        },
+        "title": "Items",
+        "type": "array"
+      },
+      "mode": {
+        "enum": [
+          "high_token",
+          "low_token"
+        ],
+        "title": "Mode",
+        "type": "string"
+      },
+      "symbols": {
+        "items": {
+          "$ref": "#/$defs/ScoredSymbol"
+        },
+        "title": "Symbols",
+        "type": "array"
+      },
+      "task": {
+        "$ref": "#/$defs/TaskSpec"
+      },
+      "total_evidence_tokens": {
+        "title": "Total Evidence Tokens",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "task",
+      "mode",
+      "items",
+      "files",
+      "symbols",
+      "total_evidence_tokens"
+    ],
+    "title": "EvidenceBundle",
+    "type": "object"
+  },
+  "ScanResult": {
+    "$defs": {
+      "CanonicalDocument": {
+        "additionalProperties": false,
+        "properties": {
+          "blocks": {
+            "items": {
+              "$ref": "#/$defs/DocumentBlock"
+            },
+            "title": "Blocks",
+            "type": "array"
+          },
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Language"
+          },
+          "line_count": {
+            "title": "Line Count",
+            "type": "integer"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          },
+          "size_bytes": {
+            "title": "Size Bytes",
+            "type": "integer"
+          },
+          "source_text": {
+            "title": "Source Text",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "size_bytes",
+          "line_count",
+          "sha256",
+          "source_text",
+          "blocks",
+          "summary"
+        ],
+        "title": "CanonicalDocument",
+        "type": "object"
+      },
+      "DocumentBlock": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "end_line": {
+            "default": 1,
+            "title": "End Line",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "title": "Metadata",
+            "type": "object"
+          },
+          "start_line": {
+            "default": 1,
+            "title": "Start Line",
+            "type": "integer"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Title"
+          }
+        },
+        "required": [
+          "kind",
+          "content"
+        ],
+        "title": "DocumentBlock",
+        "type": "object"
+      },
+      "FileSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "graph_links": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Graph Links",
+            "type": "array"
+          },
+          "imports": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Imports",
+            "type": "array"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Language"
+          },
+          "line_count": {
+            "title": "Line Count",
+            "type": "integer"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "size_bytes": {
+            "title": "Size Bytes",
+            "type": "integer"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "symbols": {
+            "items": {
+              "$ref": "#/$defs/SymbolSummary"
+            },
+            "title": "Symbols",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "size_bytes",
+          "line_count",
+          "summary"
+        ],
+        "title": "FileSummary",
+        "type": "object"
+      },
+      "RepoNode": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "anyOf": [
+              {
+                "enum": [
+                  "code",
+                  "config",
+                  "docs",
+                  "test",
+                  "build",
+                  "binary"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Category"
+          },
+          "children": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Children",
+            "type": "array"
+          },
+          "kind": {
+            "enum": [
+              "directory",
+              "file"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Parent"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "kind"
+        ],
+        "title": "RepoNode",
+        "type": "object"
+      },
+      "SymbolSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "docstring": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Docstring"
+          },
+          "end_line": {
+            "title": "End Line",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "score": {
+            "default": 0.0,
+            "title": "Score",
+            "type": "number"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          },
+          "start_line": {
+            "title": "Start Line",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "kind",
+          "path",
+          "signature",
+          "start_line",
+          "end_line"
+        ],
+        "title": "SymbolSummary",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "documents": {
+        "items": {
+          "$ref": "#/$defs/CanonicalDocument"
+        },
+        "title": "Documents",
+        "type": "array"
+      },
+      "files": {
+        "items": {
+          "$ref": "#/$defs/FileSummary"
+        },
+        "title": "Files",
+        "type": "array"
+      },
+      "nodes": {
+        "items": {
+          "$ref": "#/$defs/RepoNode"
+        },
+        "title": "Nodes",
+        "type": "array"
+      },
+      "repo_root": {
+        "title": "Repo Root",
+        "type": "string"
+      },
+      "skipped_paths": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Skipped Paths",
+        "type": "array"
+      }
+    },
+    "required": [
+      "repo_root",
+      "nodes",
+      "files",
+      "documents"
+    ],
+    "title": "ScanResult",
+    "type": "object"
+  },
+  "TraversalPlan": {
+    "$defs": {
+      "PlanStep": {
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "token_estimate": {
+            "title": "Token Estimate",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "kind",
+          "target",
+          "reason",
+          "score",
+          "token_estimate"
+        ],
+        "title": "PlanStep",
+        "type": "object"
+      },
+      "RepoNode": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "anyOf": [
+              {
+                "enum": [
+                  "code",
+                  "config",
+                  "docs",
+                  "test",
+                  "build",
+                  "binary"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Category"
+          },
+          "children": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Children",
+            "type": "array"
+          },
+          "kind": {
+            "enum": [
+              "directory",
+              "file"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Parent"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "kind"
+        ],
+        "title": "RepoNode",
+        "type": "object"
+      },
+      "ScoredFile": {
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "code",
+              "config",
+              "docs",
+              "test",
+              "build",
+              "binary"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "graph_links": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Graph Links",
+            "type": "array"
+          },
+          "matched_terms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Terms",
+            "type": "array"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "symbols": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Symbols",
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "category",
+          "summary",
+          "score"
+        ],
+        "title": "ScoredFile",
+        "type": "object"
+      },
+      "ScoredSymbol": {
+        "additionalProperties": false,
+        "properties": {
+          "end_line": {
+            "title": "End Line",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          },
+          "start_line": {
+            "title": "Start Line",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "name",
+          "kind",
+          "signature",
+          "start_line",
+          "end_line",
+          "score"
+        ],
+        "title": "ScoredSymbol",
+        "type": "object"
+      },
+      "TaskSpec": {
+        "additionalProperties": false,
+        "properties": {
+          "constraints": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Constraints",
+            "type": "array"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "mode": {
+            "default": "high_token",
+            "enum": [
+              "high_token",
+              "low_token"
+            ],
+            "title": "Mode",
+            "type": "string"
+          }
+        },
+        "required": [
+          "description"
+        ],
+        "title": "TaskSpec",
+        "type": "object"
+      },
+      "TokenBudget": {
+        "additionalProperties": false,
+        "properties": {
+          "max_prompt_tokens": {
+            "title": "Max Prompt Tokens",
+            "type": "integer"
+          },
+          "mode": {
+            "enum": [
+              "high_token",
+              "low_token"
+            ],
+            "title": "Mode",
+            "type": "string"
+          },
+          "reserved_output_tokens": {
+            "default": 1024,
+            "title": "Reserved Output Tokens",
+            "type": "integer"
+          },
+          "target_prompt_tokens": {
+            "title": "Target Prompt Tokens",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mode",
+          "max_prompt_tokens",
+          "target_prompt_tokens"
+        ],
+        "title": "TokenBudget",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "budget": {
+        "$ref": "#/$defs/TokenBudget"
+      },
+      "candidate_files": {
+        "items": {
+          "$ref": "#/$defs/ScoredFile"
+        },
+        "title": "Candidate Files",
+        "type": "array"
+      },
+      "candidate_symbols": {
+        "items": {
+          "$ref": "#/$defs/ScoredSymbol"
+        },
+        "title": "Candidate Symbols",
+        "type": "array"
+      },
+      "repo_map": {
+        "items": {
+          "$ref": "#/$defs/RepoNode"
+        },
+        "title": "Repo Map",
+        "type": "array"
+      },
+      "repo_root": {
+        "title": "Repo Root",
+        "type": "string"
+      },
+      "steps": {
+        "items": {
+          "$ref": "#/$defs/PlanStep"
+        },
+        "title": "Steps",
+        "type": "array"
+      },
+      "task": {
+        "$ref": "#/$defs/TaskSpec"
+      }
+    },
+    "required": [
+      "repo_root",
+      "task",
+      "budget",
+      "repo_map",
+      "candidate_files",
+      "candidate_symbols",
+      "steps"
+    ],
+    "title": "TraversalPlan",
+    "type": "object"
+  }
+}

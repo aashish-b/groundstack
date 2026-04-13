@@ -1,0 +1,451 @@
+{
+  "budget": {
+    "max_prompt_tokens": 80000,
+    "mode": "high_token",
+    "reserved_output_tokens": 4000,
+    "target_prompt_tokens": 60000
+  },
+  "cache_record": {
+    "cacheable_sections": [
+      "instructions",
+      "repo_map",
+      "constraints",
+      "output_contract"
+    ],
+    "deterministic": true,
+    "prefix_hash": "9c546c0a4d3a370323cfd49f2aea15534ec82febfc79c766b2ff965f6f8d8d96",
+    "renderer_version": "groundstack-renderer-v1",
+    "section_hashes": {
+      "constraints": "98a8962f25b394e88d1e2db74b9db744d01f8ede7a12c696d00b4396fd18e46f",
+      "instructions": "23d26de3fe59cc729c7269a25b6f2d327b20e57ebc5bc1ed67e9620f505b7903",
+      "output_contract": "6458c959e4293d588879cfae5678c1d4e158411b0288038ae636d96fee86014f",
+      "repo_map": "7fde7215e509ac095f768d4eaae294a1b28bdca9218dea3e7f4439bb27dec931",
+      "selected_evidence": "4971b70443657d377f15f9fa62ccfedae3e8d5766e4e348d90d3e7928990cac4",
+      "task": "855cf0ff9c47ac4ecdbb7e5a1666f1cf99dba7fbcd7e183dc060f8a28c395e88"
+    },
+    "stable_prefix_tokens": 50,
+    "tokenizer_id": "heuristic-v1",
+    "total_prompt_tokens": 1374,
+    "ttl_hint_seconds": null
+  },
+  "citations": [
+    {
+      "end_line": 10,
+      "path": "service/auth.py",
+      "start_line": 8
+    },
+    {
+      "end_line": 15,
+      "path": "service/auth.py",
+      "start_line": 13
+    },
+    {
+      "end_line": 5,
+      "path": "tests/test_auth.py",
+      "start_line": 4
+    },
+    {
+      "end_line": 10,
+      "path": "tests/test_auth.py",
+      "start_line": 8
+    },
+    {
+      "end_line": 9,
+      "path": "service/api.py",
+      "start_line": 1
+    },
+    {
+      "end_line": 9,
+      "path": "README.md",
+      "start_line": 1
+    },
+    {
+      "end_line": 5,
+      "path": "config.yaml",
+      "start_line": 1
+    }
+  ],
+  "evidence_bundle": {
+    "files": [
+      {
+        "category": "code",
+        "graph_links": [
+          "service/api.py",
+          "tests/test_auth.py"
+        ],
+        "matched_terms": [
+          "auth"
+        ],
+        "path": "service/auth.py",
+        "reasons": [
+          "path terms match task",
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 7.05,
+        "summary": "python file with 4 symbols, 2 imports, and 22 lines",
+        "symbols": [
+          "should_refresh",
+          "refresh_token",
+          "AuthService",
+          "AuthService.ensure_token"
+        ]
+      },
+      {
+        "category": "test",
+        "graph_links": [
+          "service/auth.py"
+        ],
+        "matched_terms": [
+          "auth",
+          "refresh",
+          "token"
+        ],
+        "path": "tests/test_auth.py",
+        "reasons": [
+          "symbol names match task",
+          "bug-fix task deprioritizes tests",
+          "graph proximity boost"
+        ],
+        "score": 4.9,
+        "summary": "python file with 2 symbols, 1 import, and 10 lines",
+        "symbols": [
+          "test_should_refresh_when_margin_crossed",
+          "test_refresh_token_uses_fetch_session"
+        ]
+      },
+      {
+        "category": "code",
+        "graph_links": [
+          "service/auth.py"
+        ],
+        "matched_terms": [
+          "token"
+        ],
+        "path": "service/api.py",
+        "reasons": [
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 3.9,
+        "summary": "python file with 1 symbol, 0 imports, and 9 lines",
+        "symbols": [
+          "fetch_session"
+        ]
+      },
+      {
+        "category": "docs",
+        "graph_links": [],
+        "matched_terms": [
+          "auth",
+          "refresh",
+          "the",
+          "token"
+        ],
+        "path": "README.md",
+        "reasons": [],
+        "score": 2.0,
+        "summary": "docs file with 9 lines",
+        "symbols": []
+      },
+      {
+        "category": "config",
+        "graph_links": [],
+        "matched_terms": [
+          "auth",
+          "token"
+        ],
+        "path": "config.yaml",
+        "reasons": [],
+        "score": 1.0,
+        "summary": "config file with 5 lines",
+        "symbols": []
+      }
+    ],
+    "items": [
+      {
+        "category": "code",
+        "citations": [
+          {
+            "end_line": 10,
+            "path": "service/auth.py",
+            "start_line": 8
+          }
+        ],
+        "path": "service/auth.py",
+        "reason": "path terms match task; bug-fix task boosts code file; graph proximity boost",
+        "score": 1.7625,
+        "snippet": "1: import time\n2: \n3: from service.api import fetch_session\n4: \n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:",
+        "symbol_names": [
+          "should_refresh"
+        ]
+      },
+      {
+        "category": "code",
+        "citations": [
+          {
+            "end_line": 15,
+            "path": "service/auth.py",
+            "start_line": 13
+          }
+        ],
+        "path": "service/auth.py",
+        "reason": "path terms match task; bug-fix task boosts code file; graph proximity boost",
+        "score": 1.7625,
+        "snippet": "5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n19:     def ensure_token(self, client: object, refresh_token_value: str, expires_at: float) -> str | None:\n20:         if not should_refresh(expires_at):\n21:             return None\n22:         return refresh_token(client, refresh_token_value)",
+        "symbol_names": [
+          "refresh_token"
+        ]
+      },
+      {
+        "category": "test",
+        "citations": [
+          {
+            "end_line": 5,
+            "path": "tests/test_auth.py",
+            "start_line": 4
+          }
+        ],
+        "path": "tests/test_auth.py",
+        "reason": "symbol names match task; bug-fix task deprioritizes tests; graph proximity boost",
+        "score": 1.225,
+        "snippet": "1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"",
+        "symbol_names": [
+          "test_should_refresh_when_margin_crossed"
+        ]
+      },
+      {
+        "category": "test",
+        "citations": [
+          {
+            "end_line": 10,
+            "path": "tests/test_auth.py",
+            "start_line": 8
+          }
+        ],
+        "path": "tests/test_auth.py",
+        "reason": "symbol names match task; bug-fix task deprioritizes tests; graph proximity boost",
+        "score": 1.225,
+        "snippet": "1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"",
+        "symbol_names": [
+          "test_refresh_token_uses_fetch_session"
+        ]
+      },
+      {
+        "category": "code",
+        "citations": [
+          {
+            "end_line": 9,
+            "path": "service/api.py",
+            "start_line": 1
+          }
+        ],
+        "path": "service/api.py",
+        "reason": "bug-fix task boosts code file; graph proximity boost",
+        "score": 0.975,
+        "snippet": "1: def fetch_session(client: object, refresh_token_value: str) -> dict[str, str]:\n2:     response = client.post(\n3:         \"/oauth/token\",\n4:         json={\n5:             \"grant_type\": \"refresh_token\",\n6:             \"refresh_token\": refresh_token_value,\n7:         },\n8:     )\n9:     return response.json()",
+        "symbol_names": [
+          "fetch_session"
+        ]
+      },
+      {
+        "category": "docs",
+        "citations": [
+          {
+            "end_line": 9,
+            "path": "README.md",
+            "start_line": 1
+          }
+        ],
+        "path": "README.md",
+        "reason": "",
+        "score": 2.0,
+        "snippet": "1: # Python Service\n2: \n3: ## Overview\n4: \n5: This service manages API tokens and session refreshes.\n6: \n7: ## Authentication\n8: \n9: The `service/auth.py` module owns token refresh logic.",
+        "symbol_names": []
+      },
+      {
+        "category": "config",
+        "citations": [
+          {
+            "end_line": 5,
+            "path": "config.yaml",
+            "start_line": 1
+          }
+        ],
+        "path": "config.yaml",
+        "reason": "",
+        "score": 1.0,
+        "snippet": "1: auth:\n2:   refresh_endpoint: /oauth/token\n3:   refresh_margin_seconds: 60\n4: service:\n5:   base_url: https://example.internal",
+        "symbol_names": []
+      }
+    ],
+    "mode": "high_token",
+    "symbols": [
+      {
+        "end_line": 10,
+        "kind": "function",
+        "name": "should_refresh",
+        "path": "service/auth.py",
+        "reasons": [
+          "path terms match task",
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 1.7625,
+        "signature": "def should_refresh(...)",
+        "start_line": 8
+      },
+      {
+        "end_line": 15,
+        "kind": "function",
+        "name": "refresh_token",
+        "path": "service/auth.py",
+        "reasons": [
+          "path terms match task",
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 1.7625,
+        "signature": "def refresh_token(...)",
+        "start_line": 13
+      },
+      {
+        "end_line": 22,
+        "kind": "class",
+        "name": "AuthService",
+        "path": "service/auth.py",
+        "reasons": [
+          "path terms match task",
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 1.7625,
+        "signature": "class AuthService",
+        "start_line": 18
+      },
+      {
+        "end_line": 22,
+        "kind": "method",
+        "name": "AuthService.ensure_token",
+        "path": "service/auth.py",
+        "reasons": [
+          "path terms match task",
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 1.7625,
+        "signature": "def ensure_token(...)",
+        "start_line": 19
+      },
+      {
+        "end_line": 5,
+        "kind": "function",
+        "name": "test_should_refresh_when_margin_crossed",
+        "path": "tests/test_auth.py",
+        "reasons": [
+          "symbol names match task",
+          "bug-fix task deprioritizes tests",
+          "graph proximity boost"
+        ],
+        "score": 1.225,
+        "signature": "def test_should_refresh_when_margin_crossed(...)",
+        "start_line": 4
+      },
+      {
+        "end_line": 10,
+        "kind": "function",
+        "name": "test_refresh_token_uses_fetch_session",
+        "path": "tests/test_auth.py",
+        "reasons": [
+          "symbol names match task",
+          "bug-fix task deprioritizes tests",
+          "graph proximity boost"
+        ],
+        "score": 1.225,
+        "signature": "def test_refresh_token_uses_fetch_session(...)",
+        "start_line": 8
+      },
+      {
+        "end_line": 9,
+        "kind": "function",
+        "name": "fetch_session",
+        "path": "service/api.py",
+        "reasons": [
+          "bug-fix task boosts code file",
+          "graph proximity boost"
+        ],
+        "score": 0.975,
+        "signature": "def fetch_session(...)",
+        "start_line": 1
+      }
+    ],
+    "task": {
+      "constraints": [],
+      "description": "Fix the auth token refresh bug",
+      "mode": "high_token"
+    },
+    "total_evidence_tokens": 582
+  },
+  "prompt": "<instructions>\n## Instructions\n- Read the repo map before drilling into evidence.\n- Use only the cited evidence blocks when making claims.\n- Prefer grounded reasoning over speculation.\n- Preserve file paths and line spans in any proposed fix.\n</instructions>\n\n<task>\n## Task\nFix the auth token refresh bug\n\n- Mode: `high_token`\n- Target prompt tokens: `60000`\n- Reserved output tokens: `4000`\n</task>\n\n<repo_map>\n## Repo Map\n- `service/auth.py` (code, score=7.05)\n  - python file with 4 symbols, 2 imports, and 22 lines\n  - Symbols: should_refresh, refresh_token, AuthService, AuthService.ensure_token\n  - Graph links: service/api.py, tests/test_auth.py\n  - Why: path terms match task; bug-fix task boosts code file; graph proximity boost\n- `tests/test_auth.py` (test, score=4.90)\n  - python file with 2 symbols, 1 import, and 10 lines\n  - Symbols: test_should_refresh_when_margin_crossed, test_refresh_token_uses_fetch_session\n  - Graph links: service/auth.py\n  - Why: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- `service/api.py` (code, score=3.90)\n  - python file with 1 symbol, 0 imports, and 9 lines\n  - Symbols: fetch_session\n  - Graph links: service/auth.py\n  - Why: bug-fix task boosts code file; graph proximity boost\n- `README.md` (docs, score=2.00)\n  - docs file with 9 lines\n- `config.yaml` (config, score=1.00)\n  - config file with 5 lines\n- `.gitignore` (config, score=0.00)\n  - config file with 1 lines\n</repo_map>\n\n<selected_evidence>\n## Selected Evidence\n### `service/auth.py`\n- Reason: path terms match task; bug-fix task boosts code file; graph proximity boost\n- Citation: service/auth.py:8-10\n- Symbols: should_refresh\n```python\n1: import time\n2: \n3: from service.api import fetch_session\n4: \n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n```\n### `service/auth.py`\n- Reason: path terms match task; bug-fix task boosts code file; graph proximity boost\n- Citation: service/auth.py:13-15\n- Symbols: refresh_token\n```python\n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n19:     def ensure_token(self, client: object, refresh_token_value: str, expires_at: float) -> str | None:\n20:         if not should_refresh(expires_at):\n21:             return None\n22:         return refresh_token(client, refresh_token_value)\n```\n### `tests/test_auth.py`\n- Reason: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- Citation: tests/test_auth.py:4-5\n- Symbols: test_should_refresh_when_margin_crossed\n```python\n1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"\n```\n### `tests/test_auth.py`\n- Reason: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- Citation: tests/test_auth.py:8-10\n- Symbols: test_refresh_token_uses_fetch_session\n```python\n1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"\n```\n### `service/api.py`\n- Reason: bug-fix task boosts code file; graph proximity boost\n- Citation: service/api.py:1-9\n- Symbols: fetch_session\n```python\n1: def fetch_session(client: object, refresh_token_value: str) -> dict[str, str]:\n2:     response = client.post(\n3:         \"/oauth/token\",\n4:         json={\n5:             \"grant_type\": \"refresh_token\",\n6:             \"refresh_token\": refresh_token_value,\n7:         },\n8:     )\n9:     return response.json()\n```\n### `README.md`\n- Reason: \n- Citation: README.md:1-9\n```markdown\n1: # Python Service\n2: \n3: ## Overview\n4: \n5: This service manages API tokens and session refreshes.\n6: \n7: ## Authentication\n8: \n9: The `service/auth.py` module owns token refresh logic.\n```\n### `config.yaml`\n- Reason: \n- Citation: config.yaml:1-5\n```yaml\n1: auth:\n2:   refresh_endpoint: /oauth/token\n3:   refresh_margin_seconds: 60\n4: service:\n5:   base_url: https://example.internal\n```\n</selected_evidence>\n\n<constraints>\n## Constraints\n- Ground all claims in cited evidence.\n- Prefer the top-ranked files and symbols before expanding more context.\n- Stay within `80000` prompt tokens.\n- Keep stable instructions separate from task-specific evidence for caching.\n</constraints>\n\n<output_contract>\n## Output Contract\n```json\n{\n  \"summary\": \"string\",\n  \"key_files\": [\"path:line-line\"],\n  \"risks\": [\"string\"],\n  \"next_actions\": [\"string\"]\n}\n```\n</output_contract>",
+  "rendered_sections": [
+    {
+      "cacheable": true,
+      "content": "## Instructions\n- Read the repo map before drilling into evidence.\n- Use only the cited evidence blocks when making claims.\n- Prefer grounded reasoning over speculation.\n- Preserve file paths and line spans in any proposed fix.",
+      "content_hash": "23d26de3fe59cc729c7269a25b6f2d327b20e57ebc5bc1ed67e9620f505b7903",
+      "name": "instructions",
+      "token_count": 43
+    },
+    {
+      "cacheable": false,
+      "content": "## Task\nFix the auth token refresh bug\n\n- Mode: `high_token`\n- Target prompt tokens: `60000`\n- Reserved output tokens: `4000`",
+      "content_hash": "855cf0ff9c47ac4ecdbb7e5a1666f1cf99dba7fbcd7e183dc060f8a28c395e88",
+      "name": "task",
+      "token_count": 31
+    },
+    {
+      "cacheable": true,
+      "content": "## Repo Map\n- `service/auth.py` (code, score=7.05)\n  - python file with 4 symbols, 2 imports, and 22 lines\n  - Symbols: should_refresh, refresh_token, AuthService, AuthService.ensure_token\n  - Graph links: service/api.py, tests/test_auth.py\n  - Why: path terms match task; bug-fix task boosts code file; graph proximity boost\n- `tests/test_auth.py` (test, score=4.90)\n  - python file with 2 symbols, 1 import, and 10 lines\n  - Symbols: test_should_refresh_when_margin_crossed, test_refresh_token_uses_fetch_session\n  - Graph links: service/auth.py\n  - Why: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- `service/api.py` (code, score=3.90)\n  - python file with 1 symbol, 0 imports, and 9 lines\n  - Symbols: fetch_session\n  - Graph links: service/auth.py\n  - Why: bug-fix task boosts code file; graph proximity boost\n- `README.md` (docs, score=2.00)\n  - docs file with 9 lines\n- `config.yaml` (config, score=1.00)\n  - config file with 5 lines\n- `.gitignore` (config, score=0.00)\n  - config file with 1 lines",
+      "content_hash": "7fde7215e509ac095f768d4eaae294a1b28bdca9218dea3e7f4439bb27dec931",
+      "name": "repo_map",
+      "token_count": 262
+    },
+    {
+      "cacheable": false,
+      "content": "## Selected Evidence\n### `service/auth.py`\n- Reason: path terms match task; bug-fix task boosts code file; graph proximity boost\n- Citation: service/auth.py:8-10\n- Symbols: should_refresh\n```python\n1: import time\n2: \n3: from service.api import fetch_session\n4: \n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n```\n### `service/auth.py`\n- Reason: path terms match task; bug-fix task boosts code file; graph proximity boost\n- Citation: service/auth.py:13-15\n- Symbols: refresh_token\n```python\n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n19:     def ensure_token(self, client: object, refresh_token_value: str, expires_at: float) -> str | None:\n20:         if not should_refresh(expires_at):\n21:             return None\n22:         return refresh_token(client, refresh_token_value)\n```\n### `tests/test_auth.py`\n- Reason: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- Citation: tests/test_auth.py:4-5\n- Symbols: test_should_refresh_when_margin_crossed\n```python\n1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"\n```\n### `tests/test_auth.py`\n- Reason: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- Citation: tests/test_auth.py:8-10\n- Symbols: test_refresh_token_uses_fetch_session\n```python\n1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"\n```\n### `service/api.py`\n- Reason: bug-fix task boosts code file; graph proximity boost\n- Citation: service/api.py:1-9\n- Symbols: fetch_session\n```python\n1: def fetch_session(client: object, refresh_token_value: str) -> dict[str, str]:\n2:     response = client.post(\n3:         \"/oauth/token\",\n4:         json={\n5:             \"grant_type\": \"refresh_token\",\n6:             \"refresh_token\": refresh_token_value,\n7:         },\n8:     )\n9:     return response.json()\n```\n### `README.md`\n- Reason: \n- Citation: README.md:1-9\n```markdown\n1: # Python Service\n2: \n3: ## Overview\n4: \n5: This service manages API tokens and session refreshes.\n6: \n7: ## Authentication\n8: \n9: The `service/auth.py` module owns token refresh logic.\n```\n### `config.yaml`\n- Reason: \n- Citation: config.yaml:1-5\n```yaml\n1: auth:\n2:   refresh_endpoint: /oauth/token\n3:   refresh_margin_seconds: 60\n4: service:\n5:   base_url: https://example.internal\n```",
+      "content_hash": "4971b70443657d377f15f9fa62ccfedae3e8d5766e4e348d90d3e7928990cac4",
+      "name": "selected_evidence",
+      "token_count": 895
+    },
+    {
+      "cacheable": true,
+      "content": "## Constraints\n- Ground all claims in cited evidence.\n- Prefer the top-ranked files and symbols before expanding more context.\n- Stay within `80000` prompt tokens.\n- Keep stable instructions separate from task-specific evidence for caching.",
+      "content_hash": "98a8962f25b394e88d1e2db74b9db744d01f8ede7a12c696d00b4396fd18e46f",
+      "name": "constraints",
+      "token_count": 47
+    },
+    {
+      "cacheable": true,
+      "content": "## Output Contract\n```json\n{\n  \"summary\": \"string\",\n  \"key_files\": [\"path:line-line\"],\n  \"risks\": [\"string\"],\n  \"next_actions\": [\"string\"]\n}\n```",
+      "content_hash": "6458c959e4293d588879cfae5678c1d4e158411b0288038ae636d96fee86014f",
+      "name": "output_contract",
+      "token_count": 54
+    }
+  ],
+  "repo_map_markdown": "## Repo Map\n- `service/auth.py` (code, score=7.05)\n  - python file with 4 symbols, 2 imports, and 22 lines\n  - Symbols: should_refresh, refresh_token, AuthService, AuthService.ensure_token\n  - Graph links: service/api.py, tests/test_auth.py\n  - Why: path terms match task; bug-fix task boosts code file; graph proximity boost\n- `tests/test_auth.py` (test, score=4.90)\n  - python file with 2 symbols, 1 import, and 10 lines\n  - Symbols: test_should_refresh_when_margin_crossed, test_refresh_token_uses_fetch_session\n  - Graph links: service/auth.py\n  - Why: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- `service/api.py` (code, score=3.90)\n  - python file with 1 symbol, 0 imports, and 9 lines\n  - Symbols: fetch_session\n  - Graph links: service/auth.py\n  - Why: bug-fix task boosts code file; graph proximity boost\n- `README.md` (docs, score=2.00)\n  - docs file with 9 lines\n- `config.yaml` (config, score=1.00)\n  - config file with 5 lines\n- `.gitignore` (config, score=0.00)\n  - config file with 1 lines",
+  "repo_root": "/Users/aashishbalaji/Desktop/groundstack/tests/fixtures/python_service",
+  "stable_prefix": "<instructions>\n## Instructions\n- Read the repo map before drilling into evidence.\n- Use only the cited evidence blocks when making claims.\n- Prefer grounded reasoning over speculation.\n- Preserve file paths and line spans in any proposed fix.\n</instructions>",
+  "task": {
+    "constraints": [],
+    "description": "Fix the auth token refresh bug",
+    "mode": "high_token"
+  },
+  "token_counts": {
+    "constraints": 47,
+    "instructions": 43,
+    "output_contract": 54,
+    "repo_map": 262,
+    "selected_evidence": 895,
+    "task": 31
+  },
+  "variable_tail": "<task>\n## Task\nFix the auth token refresh bug\n\n- Mode: `high_token`\n- Target prompt tokens: `60000`\n- Reserved output tokens: `4000`\n</task>\n\n<repo_map>\n## Repo Map\n- `service/auth.py` (code, score=7.05)\n  - python file with 4 symbols, 2 imports, and 22 lines\n  - Symbols: should_refresh, refresh_token, AuthService, AuthService.ensure_token\n  - Graph links: service/api.py, tests/test_auth.py\n  - Why: path terms match task; bug-fix task boosts code file; graph proximity boost\n- `tests/test_auth.py` (test, score=4.90)\n  - python file with 2 symbols, 1 import, and 10 lines\n  - Symbols: test_should_refresh_when_margin_crossed, test_refresh_token_uses_fetch_session\n  - Graph links: service/auth.py\n  - Why: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- `service/api.py` (code, score=3.90)\n  - python file with 1 symbol, 0 imports, and 9 lines\n  - Symbols: fetch_session\n  - Graph links: service/auth.py\n  - Why: bug-fix task boosts code file; graph proximity boost\n- `README.md` (docs, score=2.00)\n  - docs file with 9 lines\n- `config.yaml` (config, score=1.00)\n  - config file with 5 lines\n- `.gitignore` (config, score=0.00)\n  - config file with 1 lines\n</repo_map>\n\n<selected_evidence>\n## Selected Evidence\n### `service/auth.py`\n- Reason: path terms match task; bug-fix task boosts code file; graph proximity boost\n- Citation: service/auth.py:8-10\n- Symbols: should_refresh\n```python\n1: import time\n2: \n3: from service.api import fetch_session\n4: \n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n```\n### `service/auth.py`\n- Reason: path terms match task; bug-fix task boosts code file; graph proximity boost\n- Citation: service/auth.py:13-15\n- Symbols: refresh_token\n```python\n5: TOKEN_TTL_SECONDS = 300\n6: \n7: \n8: def should_refresh(expires_at: float, now: float | None = None) -> bool:\n9:     current_time = now or time.time()\n10:     return current_time >= expires_at - 60\n11: \n12: \n13: def refresh_token(client: object, refresh_token_value: str) -> str:\n14:     session = fetch_session(client, refresh_token_value)\n15:     return session[\"access_token\"]\n16: \n17: \n18: class AuthService:\n19:     def ensure_token(self, client: object, refresh_token_value: str, expires_at: float) -> str | None:\n20:         if not should_refresh(expires_at):\n21:             return None\n22:         return refresh_token(client, refresh_token_value)\n```\n### `tests/test_auth.py`\n- Reason: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- Citation: tests/test_auth.py:4-5\n- Symbols: test_should_refresh_when_margin_crossed\n```python\n1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"\n```\n### `tests/test_auth.py`\n- Reason: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- Citation: tests/test_auth.py:8-10\n- Symbols: test_refresh_token_uses_fetch_session\n```python\n1: from service.auth import refresh_token, should_refresh\n2: \n3: \n4: def test_should_refresh_when_margin_crossed() -> None:\n5:     assert should_refresh(120.0, now=61.0)\n6: \n7: \n8: def test_refresh_token_uses_fetch_session(fake_client) -> None:\n9:     token = refresh_token(fake_client, \"refresh-token\")\n10:     assert token == \"new-access-token\"\n```\n### `service/api.py`\n- Reason: bug-fix task boosts code file; graph proximity boost\n- Citation: service/api.py:1-9\n- Symbols: fetch_session\n```python\n1: def fetch_session(client: object, refresh_token_value: str) -> dict[str, str]:\n2:     response = client.post(\n3:         \"/oauth/token\",\n4:         json={\n5:             \"grant_type\": \"refresh_token\",\n6:             \"refresh_token\": refresh_token_value,\n7:         },\n8:     )\n9:     return response.json()\n```\n### `README.md`\n- Reason: \n- Citation: README.md:1-9\n```markdown\n1: # Python Service\n2: \n3: ## Overview\n4: \n5: This service manages API tokens and session refreshes.\n6: \n7: ## Authentication\n8: \n9: The `service/auth.py` module owns token refresh logic.\n```\n### `config.yaml`\n- Reason: \n- Citation: config.yaml:1-5\n```yaml\n1: auth:\n2:   refresh_endpoint: /oauth/token\n3:   refresh_margin_seconds: 60\n4: service:\n5:   base_url: https://example.internal\n```\n</selected_evidence>\n\n<constraints>\n## Constraints\n- Ground all claims in cited evidence.\n- Prefer the top-ranked files and symbols before expanding more context.\n- Stay within `80000` prompt tokens.\n- Keep stable instructions separate from task-specific evidence for caching.\n</constraints>\n\n<output_contract>\n## Output Contract\n```json\n{\n  \"summary\": \"string\",\n  \"key_files\": [\"path:line-line\"],\n  \"risks\": [\"string\"],\n  \"next_actions\": [\"string\"]\n}\n```\n</output_contract>"
+}
