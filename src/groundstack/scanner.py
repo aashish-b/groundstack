@@ -87,12 +87,12 @@ def scan_repo(repo_root: str | Path) -> ScanResult:
     return scan_result
 
 
-def _load_gitignore(root: Path) -> pathspec.PathSpec:
+def _load_gitignore(root: Path) -> pathspec.GitIgnoreSpec:
     gitignore_path = root / ".gitignore"
     patterns: list[str] = []
     if gitignore_path.exists():
         patterns = gitignore_path.read_text(encoding="utf-8").splitlines()
-    return pathspec.PathSpec.from_lines("gitignore", patterns)
+    return pathspec.GitIgnoreSpec.from_lines(patterns)
 
 
 def _relative(path: Path, root: Path) -> str:
@@ -100,7 +100,7 @@ def _relative(path: Path, root: Path) -> str:
     return relative or "."
 
 
-def _is_ignored(relative_path: str, ignore_spec: pathspec.PathSpec) -> bool:
+def _is_ignored(relative_path: str, ignore_spec: pathspec.GitIgnoreSpec) -> bool:
     return bool(relative_path != "." and ignore_spec.match_file(relative_path))
 
 
