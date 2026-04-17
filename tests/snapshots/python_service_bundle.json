@@ -432,7 +432,7 @@
     }
   ],
   "repo_map_markdown": "## Repo Map\n- `service/auth.py` (code, score=7.05)\n  - python file with 4 symbols, 2 imports, and 22 lines\n  - Symbols: should_refresh, refresh_token, AuthService, AuthService.ensure_token\n  - Graph links: service/api.py, tests/test_auth.py\n  - Why: path terms match task; bug-fix task boosts code file; graph proximity boost\n- `tests/test_auth.py` (test, score=4.90)\n  - python file with 2 symbols, 1 import, and 10 lines\n  - Symbols: test_should_refresh_when_margin_crossed, test_refresh_token_uses_fetch_session\n  - Graph links: service/auth.py\n  - Why: symbol names match task; bug-fix task deprioritizes tests; graph proximity boost\n- `service/api.py` (code, score=3.90)\n  - python file with 1 symbol, 0 imports, and 9 lines\n  - Symbols: fetch_session\n  - Graph links: service/auth.py\n  - Why: bug-fix task boosts code file; graph proximity boost\n- `README.md` (docs, score=2.00)\n  - docs file with 9 lines\n- `config.yaml` (config, score=1.00)\n  - config file with 5 lines\n- `.gitignore` (config, score=0.00)\n  - config file with 1 lines",
-  "repo_root": "/Users/aashishbalaji/Desktop/groundstack/tests/fixtures/python_service",
+  "repo_root": "python_service",
   "stable_prefix": "<instructions>\n## Instructions\n- Read the repo map before drilling into evidence.\n- Use only the cited evidence blocks when making claims.\n- Prefer grounded reasoning over speculation.\n- Preserve file paths and line spans in any proposed fix.\n</instructions>",
   "task": {
     "constraints": [],

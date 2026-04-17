@@ -7,9 +7,11 @@ from groundstack.scanner import scan_repo
 
 def test_scan_respects_gitignore_and_binary_skips(fixtures_root: Path) -> None:
     scan_result = scan_repo(fixtures_root / "python_service")
+    assert scan_result.repo_root == "python_service"
     assert "ignored.log" in scan_result.skipped_paths
 
     mixed_scan = scan_repo(fixtures_root / "mixed_repo")
+    assert mixed_scan.repo_root == "mixed_repo"
     assert "generated.json" in mixed_scan.skipped_paths
     assert "assets/logo.png" in mixed_scan.skipped_paths
 

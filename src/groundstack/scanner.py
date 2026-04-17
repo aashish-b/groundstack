@@ -24,6 +24,7 @@ def scan_repo(repo_root: str | Path) -> ScanResult:
     root = Path(repo_root).resolve()
     if not root.is_dir():
         raise FileNotFoundError(f"Repo root does not exist: {root}")
+    repo_label = root.name or "."
 
     ignore_spec = _load_gitignore(root)
     nodes: dict[str, RepoNode] = {".": RepoNode(path=".", kind="directory", parent=None)}
@@ -76,7 +77,7 @@ def scan_repo(repo_root: str | Path) -> ScanResult:
 
     _populate_children(nodes)
     scan_result = ScanResult(
-        repo_root=str(root),
+        repo_root=repo_label,
         nodes=[nodes[key] for key in sorted(nodes)],
         files=sorted(file_summaries, key=lambda item: item.path),
         documents=sorted(documents, key=lambda item: item.path),

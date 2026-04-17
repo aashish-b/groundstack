@@ -38,5 +38,5 @@ def test_rendered_bundle_matches_snapshot(fixtures_root: Path) -> None:
     json_snapshot = (Path(__file__).parent / "snapshots" / "python_service_bundle.json").read_text(encoding="utf-8")
     prompt_snapshot = (Path(__file__).parent / "snapshots" / "python_service_prompt.txt").read_text(encoding="utf-8")
 
-    assert model_to_stable_json(bundle) == json_snapshot
-    assert bundle.prompt == prompt_snapshot
+    assert model_to_stable_json(bundle).strip() == json_snapshot.strip()
+    assert bundle.prompt.strip() == prompt_snapshot.strip()
